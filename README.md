@@ -1,0 +1,3 @@
+Shortened version of the webpage to access the project materials is [https://shorturl.at/Ph2xl](https://shorturl.at/Ph2xl)
+
+It will be updated regularly with new files in the future.....
