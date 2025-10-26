@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="mmh_pedl"><!-- Default theme: mmh_pedl (Facebook-style light) -->
 <head>
   <meta charset="utf-8">
   <title>PEDL: Bricks to Blocks – Materials</title>
@@ -9,56 +9,103 @@
   <meta property="og:title" content="PEDL: Bricks to Blocks – Materials">
   <meta property="og:description" content="Open materials: Block Producer List (PDF) and Workshop Training Manual Presentation (PDF).">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0b3d2e">
+  <!-- Browser address bar color on mobile -->
+  <meta name="theme-color" content="#1877f2">
+
   <style>
-    :root{
-      --bg:#f7faf9; --card:#ffffff; --ink:#0f1720; --muted:#4b5563; --brand:#0b3d2e; --brand-2:#0e7f6c; --ring:#b7e4d9;
+    /* ============================================================
+       THEME: mmh_pedl (Facebook-style blue on off-white)
+       - Single source of truth for colors via CSS variables.
+       - No dark/system/theme-switching code included.
+       ============================================================ */
+    :root, [data-theme="mmh_pedl"]{
+      --bg:#f5f6f7;        /* off-white app background */
+      --card:#ffffff;      /* card surfaces */
+      --ink:#1c1e21;       /* primary text (near-black) */
+      --muted:#65676b;     /* secondary text */
+      --brand:#1877f2;     /* Facebook blue */
+      --brand-2:#1462d9;   /* deeper blue for accents/gradients */
+      --ring:#b3d2ff;      /* accessible focus outline */
     }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b1210; --card:#111814; --ink:#e6f0eb; --muted:#9aa5af; --brand:#7ce1c8; --brand-2:#a8f2e3; --ring:#1b3a31; }
-    }
+
+    /* ========== Base reset & layout ========== */
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
       font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica,Arial,sans-serif;
-      color:var(--ink); background:radial-gradient(1200px 600px at 20% -10%, #e7faf3, transparent), var(--bg);
+      color:var(--ink);
+      /* subtle hero glow with FB blue tint */
+      background:radial-gradient(1200px 600px at 20% -10%, rgba(24,119,242,.10), transparent), var(--bg);
       display:flex; min-height:100svh;
     }
     .wrap{margin:auto; padding:32px 20px; width:min(860px, 100%);}
+
+    /* ========== Header ========== */
     header{display:flex; gap:16px; align-items:center; margin-bottom:22px;}
     .logo{
-      width:44px; height:44px; border-radius:10px; background:conic-gradient(from 210deg at 60% 40%, var(--brand), var(--brand-2));
-      display:grid; place-items:center; color:white; font-weight:700; letter-spacing:.5px;
-      box-shadow:0 6px 18px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.3);
+      width:44px; height:44px; border-radius:10px;
+      background:conic-gradient(from 210deg at 60% 40%, var(--brand), var(--brand-2));
+      display:grid; place-items:center; color:#fff; font-weight:700; letter-spacing:.5px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.22);
     }
     h1{margin:0; font-size:1.6rem; line-height:1.2}
     .sub{color:var(--muted); margin-top:4px; font-size:.98rem}
+
+    /* ========== Card ========== */
     .card{
-      background:var(--card); border-radius:16px; padding:22px; box-shadow:
-        0 20px 40px rgba(0,0,0,.06), 0 1px 0 rgba(255,255,255,.25) inset;
-      border:1px solid rgba(11,61,46,.07);
+      background:var(--card); border-radius:16px; padding:22px;
+      box-shadow:0 20px 40px rgba(0,0,0,.06), 0 1px 0 rgba(255,255,255,.25) inset;
+      /* subtle blue-tinted border with fallback */
+      border:1px solid rgba(24,119,242,.10);
+      border:1px solid color-mix(in srgb, var(--brand) 12%, transparent);
     }
+
+    /* ========== Buttons ========== */
     .actions{display:grid; grid-template-columns:1fr; gap:12px; margin:14px 0 6px}
     @media (min-width:600px){ .actions{grid-template-columns:1fr 1fr} }
+
     a.button{
       display:flex; align-items:center; gap:10px; justify-content:center;
-      padding:14px 16px; border-radius:12px; text-decoration:none; color:#fff; background:var(--brand);
-      border:1px solid rgba(0,0,0,.08); box-shadow:0 8px 20px rgba(0,0,0,.08);
+      padding:14px 16px; border-radius:12px; text-decoration:none;
+      color:#fff; background:var(--brand);
+      border:1px solid rgba(0,0,0,.06);
+      /* soft shadow tinted by brand (with fallback) */
+      box-shadow:0 8px 20px rgba(24,119,242,.20);
+      box-shadow:0 8px 20px color-mix(in srgb, var(--brand) 25%, transparent);
+      transition:filter .15s ease, transform .02s ease;
     }
-    a.button:hover{ filter:brightness(1.05)}
-    a.button.secondary{ background:#1f2937 }
+    a.button:hover{ filter:brightness(1.06)}
+    a.button:active{ transform:translateY(1px) }
+
+    /* Secondary = neutral, keeps visual hierarchy with primary blue */
+    a.button.secondary{ background:#1f2937; color:#fff; }
+
+    /* Outline = link-like action in brand color */
     a.button.outline{
-      background:transparent; color:var(--brand); border:1.5px solid var(--brand); box-shadow:none;
+      background:transparent; color:var(--brand);
+      border:1.5px solid var(--brand); box-shadow:none;
     }
+    a.button.outline:hover{
+      background:rgba(24,119,242,.06);
+      background:color-mix(in srgb, var(--brand) 6%, transparent);
+    }
+
+    /* ========== Meta & misc ========== */
     .meta{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; color:var(--muted); font-size:.95rem}
     .meta span{display:inline-flex; align-items:center; gap:8px}
     .footer{margin-top:18px; font-size:.92rem; color:var(--muted)}
     .list{margin:6px 0 0 0; padding:0 0 0 18px}
-    .badge{font-size:.78rem; padding:.25rem .5rem; border-radius:999px; background:rgba(11,61,46,.08); color:var(--brand)}
-    /* focus ring */
-    a:focus-visible, button:focus-visible{ outline:3px solid var(--ring); outline-offset:2px; border-radius:10px}
-    /* small print */
-    .tiny{font-size:.86rem; color:var(--muted)}
+
+    .badge{
+      font-size:.78rem; padding:.25rem .5rem; border-radius:999px;
+      background:rgba(24,119,242,.12); color:var(--brand);
+      background:color-mix(in srgb, var(--brand) 12%, transparent);
+    }
+
+    /* Accessibility: clear focus ring */
+    a:focus-visible, button:focus-visible{
+      outline:3px solid var(--ring); outline-offset:2px; border-radius:10px
+    }
   </style>
 </head>
 <body>
@@ -71,35 +118,37 @@
       </div>
     </header>
 
-      <hr style="margin:18px 0; border:none; border-top:1px solid rgba(0,0,0,.08)">
+    <hr style="margin:18px 0; border:none; border-top:1px solid rgba(24,119,242,.18)">
 
-      <p style="margin:0 0 10px 0;">Project information and background:</p>
-      <p style="margin:0 0 16px 0;">
-        <a class="button outline" href="https://bigd.bracu.ac.bd/study/bricks-to-blocks-information-and-coordination-challenges-for-transitioning-to-a-cleaner-building-technology/">
-          View project page on BIGD website.
-        </a>
-      </p>
-    
-      <details>
-        <summary>What’s stored here in this repository?</summary>
-        
-        <ul class="list">
-          <li><strong>Block Producer List (PDF):</strong> consolidated list of producers for coordination and outreach.</li>
-          <li><strong>Workshop Training Manual Presentation (PDF):</strong> with discussion about the policy context and manual focused on block use.</li>
-        </ul>
-        
-      </details>
-    
+    <p style="margin:0 0 10px 0;">Project information and background:</p>
+    <p style="margin:0 0 16px 0;">
+      <a class="button outline" href="https://bigd.bracu.ac.bd/study/bricks-to-blocks-information-and-coordination-challenges-for-transitioning-to-a-cleaner-building-technology/">
+        View project page on BIGD website.
+      </a>
+    </p>
+
+    <details>
+      <summary>What’s stored here in this repository?</summary>
+      <ul class="list">
+        <li><strong>Block Producer List (PDF):</strong> consolidated list of producers for coordination and outreach.</li>
+        <li><strong>Workshop Training Manual Presentation (PDF):</strong> with discussion about the policy context and manual focused on block use.</li>
+      </ul>
+    </details>
+
     <section class="card" aria-labelledby="downloads">
       <h2 id="downloads" style="margin:0 0 10px 0;">Downloads</h2>
       <div class="actions">
         <a class="button" href="2025-10-23%20Block_Producers_List_MMH.pdf" download>
           <!-- inline icon -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           Block Producer List (PDF)
         </a>
-        <a class="button" href="Workshop_Training_Manual.pdf" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h12M4 12h12M4 18h8M18 6v12l3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a class="button secondary" href="Workshop_Training_Manual.pdf" download>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6h12M4 12h12M4 18h8M18 6v12l3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           Training Manual (PDF)
         </a>
       </div>
@@ -109,7 +158,7 @@
         <span title="Compiler">Compiled by: <strong>Md. Mohsin Hossain</strong> Senior Research Associate</span>
         <span title="Institution">BIGD, BRAC University</span>
       </div>
-      
+
       <p class="footer">
         For feedback or updated versions, please contact at mohsin.hossain@bracu.ac.bd . You may redistribute with attribution.
         <span class="tiny">License: CC BY 4.0 (recommended)</span>
