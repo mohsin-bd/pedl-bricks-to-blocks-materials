@@ -1,64 +1,47 @@
 <!doctype html>
-<html lang="en" data-theme="fb">
+<html lang="en" data-theme="mmh_pedl"><!-- Default theme: mmh_pedl (Facebook-style light) -->
 <head>
   <meta charset="utf-8">
   <title>PEDL: Bricks to Blocks – Materials</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Open materials for PEDL: Bricks to Blocks — Block Producer List and Workshop Training Manual Presentation.">
+  <!-- Social share -->
   <meta property="og:title" content="PEDL: Bricks to Blocks – Materials">
   <meta property="og:description" content="Open materials: Block Producer List (PDF) and Workshop Training Manual Presentation (PDF).">
   <meta property="og:type" content="website">
+  <!-- Browser address bar color on mobile -->
   <meta name="theme-color" content="#1877f2">
+
   <style>
-    /* === THEME OPTIONS (3 modes) === */
-    /* Facebook (light) — default palette */
-    :root,[data-theme="fb"]{
-      --bg:#f5f6f7;        /* off-white */
-      --card:#ffffff;
-      --ink:#1c1e21;       /* text */
+    /* ============================================================
+       THEME: mmh_pedl (Facebook-style blue on off-white)
+       - Single source of truth for colors via CSS variables.
+       - No dark/system/theme-switching code included.
+       ============================================================ */
+    :root, [data-theme="mmh_pedl"]{
+      --bg:#f5f6f7;        /* off-white app background */
+      --card:#ffffff;      /* card surfaces */
+      --ink:#1c1e21;       /* primary text (near-black) */
       --muted:#65676b;     /* secondary text */
-      --brand:#1877f2;     /* FB blue */
-      --brand-2:#1462d9;   /* deeper blue */
-      --ring:#b3d2ff;      /* focus ring */
+      --brand:#1877f2;     /* Facebook blue */
+      --brand-2:#1462d9;   /* deeper blue for accents/gradients */
+      --ring:#b3d2ff;      /* accessible focus outline */
     }
 
-    /* Dark mode (manual) */
-    [data-theme="fb-dark"]{
-      --bg:#0f141b;
-      --card:#121826;
-      --ink:#e4e6eb;
-      --muted:#b0b3b8;
-      --brand:#74a7ff;
-      --brand-2:#a9c6ff;
-      --ring:#1d3b72;
-    }
-
-    /* System mode: when data-theme is absent, we fall back to :root + this media query */
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#0f141b;
-        --card:#121826;
-        --ink:#e4e6eb;
-        --muted:#b0b3b8;
-        --brand:#74a7ff;
-        --brand-2:#a9c6ff;
-        --ring:#1d3b72;
-      }
-    }
-
-    /* === Base & components (read variables) === */
+    /* ========== Base reset & layout ========== */
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
       font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica,Arial,sans-serif;
       color:var(--ink);
+      /* subtle hero glow with FB blue tint */
       background:radial-gradient(1200px 600px at 20% -10%, rgba(24,119,242,.10), transparent), var(--bg);
       display:flex; min-height:100svh;
     }
     .wrap{margin:auto; padding:32px 20px; width:min(860px, 100%);}
 
-    header{display:flex; gap:16px; align-items:center; margin-bottom:22px; justify-content:space-between}
-    .head-left{display:flex; gap:16px; align-items:center}
+    /* ========== Header ========== */
+    header{display:flex; gap:16px; align-items:center; margin-bottom:22px;}
     .logo{
       width:44px; height:44px; border-radius:10px;
       background:conic-gradient(from 210deg at 60% 40%, var(--brand), var(--brand-2));
@@ -68,11 +51,16 @@
     h1{margin:0; font-size:1.6rem; line-height:1.2}
     .sub{color:var(--muted); margin-top:4px; font-size:.98rem}
 
+    /* ========== Card ========== */
     .card{
       background:var(--card); border-radius:16px; padding:22px;
       box-shadow:0 20px 40px rgba(0,0,0,.06), 0 1px 0 rgba(255,255,255,.25) inset;
+      /* subtle blue-tinted border with fallback */
+      border:1px solid rgba(24,119,242,.10);
       border:1px solid color-mix(in srgb, var(--brand) 12%, transparent);
     }
+
+    /* ========== Buttons ========== */
     .actions{display:grid; grid-template-columns:1fr; gap:12px; margin:14px 0 6px}
     @media (min-width:600px){ .actions{grid-template-columns:1fr 1fr} }
 
@@ -81,62 +69,52 @@
       padding:14px 16px; border-radius:12px; text-decoration:none;
       color:#fff; background:var(--brand);
       border:1px solid rgba(0,0,0,.06);
+      /* soft shadow tinted by brand (with fallback) */
+      box-shadow:0 8px 20px rgba(24,119,242,.20);
       box-shadow:0 8px 20px color-mix(in srgb, var(--brand) 25%, transparent);
       transition:filter .15s ease, transform .02s ease;
     }
     a.button:hover{ filter:brightness(1.06)}
     a.button:active{ transform:translateY(1px) }
 
+    /* Secondary = neutral, keeps visual hierarchy with primary blue */
     a.button.secondary{ background:#1f2937; color:#fff; }
+
+    /* Outline = link-like action in brand color */
     a.button.outline{
       background:transparent; color:var(--brand);
       border:1.5px solid var(--brand); box-shadow:none;
     }
-    a.button.outline:hover{ background:color-mix(in srgb, var(--brand) 6%, transparent); }
+    a.button.outline:hover{
+      background:rgba(24,119,242,.06);
+      background:color-mix(in srgb, var(--brand) 6%, transparent);
+    }
 
+    /* ========== Meta & misc ========== */
     .meta{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; color:var(--muted); font-size:.95rem}
     .meta span{display:inline-flex; align-items:center; gap:8px}
     .footer{margin-top:18px; font-size:.92rem; color:var(--muted)}
     .list{margin:6px 0 0 0; padding:0 0 0 18px}
+
     .badge{
       font-size:.78rem; padding:.25rem .5rem; border-radius:999px;
-      background:color-mix(in srgb, var(--brand) 12%, transparent); color:var(--brand)
+      background:rgba(24,119,242,.12); color:var(--brand);
+      background:color-mix(in srgb, var(--brand) 12%, transparent);
     }
-    a:focus-visible, button:focus-visible{ outline:3px solid var(--ring); outline-offset:2px; border-radius:10px }
 
-    /* === Tiny theme switcher (segmented control) === */
-    .theme-switch{
-      display:flex; align-items:center; gap:8px;
-      background:var(--card); padding:6px; border-radius:999px;
-      border:1px solid color-mix(in srgb, var(--brand) 12%, transparent);
-      box-shadow:0 6px 16px rgba(0,0,0,.06);
-    }
-    .theme-switch button{
-      appearance:none; border:0; background:transparent; cursor:pointer;
-      padding:8px 12px; border-radius:999px; font-size:.92rem; color:var(--muted);
-    }
-    .theme-switch button[aria-pressed="true"]{
-      background:color-mix(in srgb, var(--brand) 10%, transparent);
-      color:var(--ink);
+    /* Accessibility: clear focus ring */
+    a:focus-visible, button:focus-visible{
+      outline:3px solid var(--ring); outline-offset:2px; border-radius:10px
     }
   </style>
 </head>
 <body>
   <main class="wrap">
     <header>
-      <div class="head-left">
-        <div class="logo" aria-hidden="true">B2B</div>
-        <div>
-          <h1>PEDL: Bricks to Blocks – Materials</h1>
-          <div class="sub">Open access downloads for field teams, partners, and stakeholders</div>
-        </div>
-      </div>
-
-      <!-- Theme switcher -->
-      <div class="theme-switch" role="group" aria-label="Theme">
-        <button type="button" data-choice="fb" aria-pressed="true" title="Facebook (light)">Facebook</button>
-        <button type="button" data-choice="fb-dark" aria-pressed="false" title="Dark">Dark</button>
-        <button type="button" data-choice="system" aria-pressed="false" title="Follow your OS">System</button>
+      <div class="logo" aria-hidden="true">B2B</div>
+      <div>
+        <h1>PEDL: Bricks to Blocks – Materials</h1>
+        <div class="sub">Open access downloads for field teams, partners, and stakeholders</div>
       </div>
     </header>
 
@@ -161,11 +139,16 @@
       <h2 id="downloads" style="margin:0 0 10px 0;">Downloads</h2>
       <div class="actions">
         <a class="button" href="2025-10-23%20Block_Producers_List_MMH.pdf" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <!-- inline icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           Block Producer List (PDF)
         </a>
         <a class="button secondary" href="Workshop_Training_Manual.pdf" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h12M4 12h12M4 18h8M18 6v12l3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6h12M4 12h12M4 18h8M18 6v12l3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           Training Manual (PDF)
         </a>
       </div>
@@ -182,45 +165,5 @@
       </p>
     </section>
   </main>
-
-  <!-- Tiny inline JS to switch and persist theme -->
-  <script>
-    (function(){
-      const root = document.documentElement;
-      const buttons = document.querySelectorAll('.theme-switch button');
-      const STORAGE_KEY = 'b2b-theme';
-      const saved = localStorage.getItem(STORAGE_KEY);
-
-      // Apply saved choice (default: fb / light)
-      if(saved === 'fb'){
-        root.setAttribute('data-theme','fb');
-      } else if(saved === 'fb-dark'){
-        root.setAttribute('data-theme','fb-dark');
-      } else if(saved === 'system'){
-        root.removeAttribute('data-theme'); // let system media query drive it
-      } else {
-        root.setAttribute('data-theme','fb'); // explicit light default
-      }
-      updatePressed(saved || 'fb');
-
-      // Click handling
-      buttons.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const choice = btn.getAttribute('data-choice');
-          if(choice === 'system'){
-            root.removeAttribute('data-theme');
-          } else {
-            root.setAttribute('data-theme', choice);
-          }
-          localStorage.setItem(STORAGE_KEY, choice);
-          updatePressed(choice);
-        });
-      });
-
-      function updatePressed(choice){
-        buttons.forEach(b=>b.setAttribute('aria-pressed', String(b.getAttribute('data-choice')===choice)));
-      }
-    })();
-  </script>
 </body>
 </html>
