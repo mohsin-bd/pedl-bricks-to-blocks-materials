@@ -1,3 +1,3 @@
-Shortened version of the webpage to access the project materials is [https://shorturl.at/Ph2xl](https://shorturl.at/Ph2xl)
+Access the project materials webpage at [https://mohsin-bd.github.io/pedl-bricks-to-blocks-materials/](https://mohsin-bd.github.io/pedl-bricks-to-blocks-materials/)
 
-It will be updated regularly with new files in the future.....
+This repository contains open materials for the PEDL: Bricks to Blocks project, including PDFs for block producer lists and training manuals. It will be updated regularly with new files in the future.
