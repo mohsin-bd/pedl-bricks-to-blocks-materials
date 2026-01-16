@@ -10,7 +10,7 @@
   <meta property="og:description" content="Open materials: Block Producer List (PDF) and Workshop Training Manual Presentation (PDF).">
   <meta property="og:type" content="website">
   <!-- Browser address bar color on mobile -->
-  <meta name="theme-color" content="#1877f2">
+  <meta name="theme-color" content="#059669">
 
   <style>
     /* ============================================================
@@ -19,13 +19,13 @@
        - No dark/system/theme-switching code included.
        ============================================================ */
     :root, [data-theme="mmh_pedl"]{
-      --bg:#f5f6f7;        /* off-white app background */
+      --bg:#f0fdf4;        /* light green background */
       --card:#ffffff;      /* card surfaces */
       --ink:#1c1e21;       /* primary text (near-black) */
       --muted:#65676b;     /* secondary text */
-      --brand:#1877f2;     /* Facebook blue */
-      --brand-2:#1462d9;   /* deeper blue for accents/gradients */
-      --ring:#b3d2ff;      /* accessible focus outline */
+      --brand:#059669;     /* green */
+      --brand-2:#047857;   /* deeper green for accents/gradients */
+      --ring:#a7f3d0;      /* accessible focus outline */
     }
 
     /* ========== Base reset & layout ========== */
@@ -35,7 +35,7 @@
       font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica,Arial,sans-serif;
       color:var(--ink);
       /* subtle hero glow with FB blue tint */
-      background:radial-gradient(1200px 600px at 20% -10%, rgba(24,119,242,.10), transparent), var(--bg);
+      background:radial-gradient(1200px 600px at 20% -10%, rgba(5,150,105,.10), transparent), var(--bg);
       display:flex; min-height:100svh;
     }
     .wrap{margin:auto; padding:32px 20px; width:min(860px, 100%);}
@@ -56,7 +56,7 @@
       background:var(--card); border-radius:16px; padding:22px;
       box-shadow:0 20px 40px rgba(0,0,0,.06), 0 1px 0 rgba(255,255,255,.25) inset;
       /* subtle blue-tinted border with fallback */
-      border:1px solid rgba(24,119,242,.10);
+      border:1px solid rgba(5,150,105,.10);
       border:1px solid color-mix(in srgb, var(--brand) 12%, transparent);
     }
 
@@ -118,7 +118,9 @@
       </div>
     </header>
 
-    <hr style="margin:18px 0; border:none; border-top:1px solid rgba(24,119,242,.18)">
+    <hr style="margin:18px 0; border:none; border-top:1px solid rgba(5,150,105,.18)">
+
+    <p>This initiative focuses on the transition from traditional brick production to sustainable block manufacturing, addressing information and coordination challenges in adopting cleaner building technologies.</p>
 
     <p style="margin:0 0 10px 0;">Project information and background:</p>
     <p style="margin:0 0 16px 0;">
@@ -127,7 +129,7 @@
       </a>
     </p>
 
-    <details>
+    <details open>
       <summary>What’s stored here in this repository?</summary>
       <ul class="list">
         <li><strong>Block Producer List (PDF):</strong> consolidated list of producers for coordination and outreach.</li>
