@@ -36,12 +36,7 @@ h1{margin:0; font-size:1.6rem; line-height:1.2}
   .sub{ font-size:0.95rem }
 
   /* Move nav below title and make buttons compact / full-width when needed */
-  header nav{ margin-left:0; margin-top:6px; width:100%; display:none; gap:8px; }
-  header.nav-open nav{ display:flex }
-  /* hamburger toggle button */
-  .nav-toggle{ display:inline-flex; align-items:center; justify-content:center; padding:8px; border-radius:8px; background:transparent; border:1px solid color-mix(in srgb, var(--brand) 20%, transparent); color:var(--brand); }
-  .nav-toggle svg{ display:block }
-  .nav-toggle:focus{ outline:3px solid var(--ring); outline-offset:3px }
+  header nav{ margin-left:0; margin-top:6px; width:100%; display:flex; gap:8px; }
   header nav a{ flex:1; padding:8px 10px; border-radius:10px; text-align:center; }
 
   /* Make top download buttons and resource cards breathe better on small screens */
