@@ -88,6 +88,8 @@ a.button.outline{ background:transparent; color:var(--brand); border:1.5px solid
 a.button.outline:hover{ background:color-mix(in srgb, var(--brand) 6%, transparent); }
 .meta{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; color:var(--muted); font-size:.95rem}
 .meta span{display:inline-flex; align-items:center; gap:8px}
+.compiled-link{color:var(--brand-2); text-decoration:none}
+.compiled-link:hover{ text-decoration:underline }
 .footer{margin-top:18px; font-size:.92rem; color:var(--muted)}
 .list{margin:6px 0 0 0; padding:0 0 0 18px}
 .badge{ font-size:.78rem; padding:.25rem .5rem; border-radius:999px; background:color-mix(in srgb, var(--brand) 12%, transparent); color:var(--brand);} 
