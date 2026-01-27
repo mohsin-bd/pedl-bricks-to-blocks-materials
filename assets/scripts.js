@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function(){
       "nav.downloads_title": "ডাউনলোড বিভাগে যান",
       lang_toggle: "English",
       lang_toggle_title: "ইংরেজি দেখুন",
+      lang_toggle_aria: "ইংরেজি দেখুন",
       intro_para1: "এই উদ্যোগটি প্রচলিত ইট উৎপাদন থেকে টেকসই ব্লক উৎপাদনে রূপান্তরকে সহজ করা এবং পরিচ্ছন্ন নির্মাণ প্রযুক্তি গ্রহণে তথ্য ও সমন্বয়ের চ্যালেঞ্জ মোকাবেলা করার লক্ষ্যে কাজ করে।",
       project_info_label: "প্রকল্পের তথ্য ও পটভূমি:",
       project_page_button: "BIGD ওয়েবসাইটে প্রকল্প পৃষ্ঠা দেখুন",
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function(){
       "nav.downloads_title": "Jump to Downloads",
       lang_toggle: "বাংলা",
       lang_toggle_title: "বাংলা সংস্করণ দেখুন",
+      lang_toggle_aria: "বাংলা সংস্করণ দেখুন",
       intro_para1: "This initiative focuses on the transition from traditional brick production to sustainable block manufacturing, addressing information and coordination challenges in adopting cleaner building technologies.",
       project_info_label: "Project information and background:",
       project_page_button: "View project page on BIGD website",
@@ -153,14 +155,22 @@ document.addEventListener('DOMContentLoaded', function(){
   let lang = localStorage.getItem('siteLang') || 'bn';
   applyLang(lang);
 
-  // Wire up the language toggle button
+  // Wire up the language toggle button (more robust)
   const langToggle = document.getElementById('lang-toggle');
   if(langToggle){
     langToggle.addEventListener('click', function(){
-      const newLang = (localStorage.getItem('siteLang') === 'en') ? 'bn' : 'en';
+      // determine current language reliably
+      const current = localStorage.getItem('siteLang') || document.documentElement.lang || 'bn';
+      const newLang = (current === 'en') ? 'bn' : 'en';
       localStorage.setItem('siteLang', newLang);
+      lang = newLang; // keep local var in sync
       applyLang(newLang);
     });
+    // ensure aria-label for the toggle exists and is translated
+    // provide fallback if translation missing
+    if(!langToggle.getAttribute('aria-label')){
+      langToggle.setAttribute('aria-label', 'Toggle language');
+    }
   }
 
 });
