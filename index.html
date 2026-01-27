@@ -49,6 +49,8 @@
       display:grid; place-items:center; color:#fff; font-weight:700; letter-spacing:.5px;
       box-shadow:0 6px 18px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.22);
     }
+    header nav{ display:flex; gap:8px; margin-left:auto; align-items:center }
+    .button.small{ padding:8px 10px; border-radius:10px; font-size:.95rem; box-shadow:none }
     h1{margin:0; font-size:1.6rem; line-height:1.2}
     .sub{color:var(--muted); margin-top:4px; font-size:.98rem}
 
@@ -106,7 +108,7 @@
     
       /* Resource list visuals */
       .resources{ margin-top:12px; display:grid; gap:8px }
-      .resource-item{ display:flex; align-items:flex-start; gap:12px; padding:10px; border-radius:10px; background:color-mix(in srgb, var(--card) 92%, var(--brand) 2%); border:1px solid rgba(0,0,0,.03)}
+      .resource-item{ display:flex; align-items:flex-start; gap:12px; padding:12px 10px; border-radius:10px; background:color-mix(in srgb, var(--card) 98%, var(--brand) 0%); border:1px solid rgba(0,0,0,.04)}
       .resource-item .meta-small{ color:var(--muted); font-size:.92rem }
 
     /* Accessibility: clear focus ring */
@@ -148,9 +150,9 @@
         <h1>PEDL: Bricks to Blocks – Materials</h1>
         <div class="sub">Open access downloads for field teams, partners, and stakeholders</div>
       </div>
-      <nav aria-label="Primary" style="margin-left:auto">
-        <a class="button outline" href="https://bigd.bracu.ac.bd/study/bricks-to-blocks-information-and-coordination-challenges-for-transitioning-to-a-cleaner-building-technology/" rel="noopener noreferrer" title="Project page on BIGD">Project page</a>
-        <a class="button outline" href="#downloads" title="Jump to Downloads">Downloads</a>
+      <nav aria-label="Primary">
+        <a class="button small outline" href="https://bigd.bracu.ac.bd/study/bricks-to-blocks-information-and-coordination-challenges-for-transitioning-to-a-cleaner-building-technology/" rel="noopener noreferrer" title="Project page on BIGD">Project page</a>
+        <a class="button small outline" href="#downloads" title="Jump to Downloads">Downloads</a>
       </nav>
     </header>
 
@@ -182,8 +184,7 @@
           Block Producer List <span class="sr-only">PDF</span>
         </a>
         <span id="desc-bpl" class="sr-only">PDF download. Click to download the Block Producer List.</span>
-        </a>
-
+        
         <a id="link-manual" class="button secondary" href="resources/Workshop_Training_Manual.pdf" download type="application/pdf" title="Download Training Manual (PDF)" aria-label="Download Training Manual PDF" aria-describedby="desc-manual" rel="noopener noreferrer">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 6h12M4 12h12M4 18h8M18 6v12l3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -202,64 +203,15 @@
       </div>
 
       <div class="resources" aria-hidden="false">
-        <div class="resource-item">
+        <div class="resource-item" data-filename="2025-10-26 Block_Producers_List_MMH.pdf">
           <div style="min-width:36px; display:grid; place-items:center">📄</div>
           <div>
             <div><strong>Block Producer List (PDF)</strong></div>
             <div class="meta-small">Consolidated list of producers for coordination and outreach — Format: PDF</div>
-      <script>
-        // Fetch Content-Length and Content-Type for downloadable resources and display size
-        (function(){
-          function human(bytes){
-            if(!bytes) return '—';
-            const thresh = 1024;
-            if(bytes < thresh) return bytes + ' B';
-            const units = ['KB','MB','GB','TB'];
-            let u = -1;
-            do{ bytes /= thresh; ++u } while(bytes >= thresh && u < units.length-1);
-            return bytes.toFixed( (u<1)?0:1 ) + ' ' + units[u];
-          }
-
-          const links = Array.from(document.querySelectorAll('.actions a[download]'));
-          links.forEach(async a => {
-            try{
-              const url = a.getAttribute('href');
-              // Use HEAD request to obtain headers; fallback to GET with range if HEAD blocked
-              let res = await fetch(url, { method: 'HEAD' });
-              if(!res.ok || !res.headers.has('content-length')){
-                res = await fetch(url, { method: 'GET', headers: { 'Range': 'bytes=0-0' } });
-              }
-              const len = res.headers.get('content-length');
-              const type = res.headers.get('content-type') || 'application/octet-stream';
-              const modified = res.headers.get('last-modified');
-
-              // Find matching resource-item by link text
-              const textNode = a.childNodes[a.childNodes.length-1];
-              const label = (textNode && textNode.textContent) ? textNode.textContent.trim() : a.textContent.trim();
-              const items = document.querySelectorAll('.resource-item');
-              // try to match by strong text
-              let target = Array.from(items).find(it => it.querySelector('strong') && it.querySelector('strong').textContent.includes(label));
-              if(!target) target = items[0];
-
-              const meta = target && target.querySelector('.meta-small');
-              if(meta){
-                const parts = [];
-                if(type) parts.push(type.split(';')[0]);
-                if(len) parts.push(human(parseInt(len,10)));
-                if(modified) parts.push(new Date(modified).toLocaleDateString());
-                if(parts.length) meta.textContent += ' — ' + parts.join(' • ');
-              }
-            }catch(e){
-              // ignore errors; content-length may be unavailable
-              return;
-            }
-          });
-        })();
-      </script>
           </div>
         </div>
 
-        <div class="resource-item">
+        <div class="resource-item" data-filename="Workshop_Training_Manual.pdf">
           <div style="min-width:36px; display:grid; place-items:center">📘</div>
           <div>
             <div><strong>Workshop Training Manual (PDF)</strong></div>
@@ -267,7 +219,7 @@
           </div>
         </div>
 
-        <div class="resource-item">
+        <div class="resource-item" data-filename="PEDL B2B Workshop Booklet.pdf">
           <div style="min-width:36px; display:grid; place-items:center">📗</div>
           <div>
             <div><strong>PEDL B2B Workshop Booklet (PDF)</strong></div>
@@ -288,5 +240,59 @@
       </p>
     </section>
   </main>
+
+  <script>
+    // Fetch Content-Length and Content-Type for downloadable resources and display size
+    (function(){
+      function human(bytes){
+        if(!bytes) return '—';
+        const thresh = 1024;
+        if(bytes < thresh) return bytes + ' B';
+        const units = ['KB','MB','GB','TB'];
+        let u = -1;
+        do{ bytes /= thresh; ++u } while(bytes >= thresh && u < units.length-1);
+        return bytes.toFixed( (u<1)?0:1 ) + ' ' + units[u];
+      }
+
+      const links = Array.from(document.querySelectorAll('.actions a[download]'));
+      links.forEach(async a => {
+        try{
+          const href = a.getAttribute('href');
+          const filename = decodeURIComponent(href.split('/').pop());
+
+          // find matching resource-item by data-filename
+          const target = document.querySelector(`.resource-item[data-filename="${filename}"]`);
+          if(!target) return;
+
+          const meta = target.querySelector('.meta-small');
+          if(!meta) return;
+          if(meta.dataset.enhanced === 'true') return; // already added
+
+          // Use HEAD request to obtain headers; fallback to GET with range if HEAD blocked
+          let res = await fetch(href, { method: 'HEAD' });
+          if(!res.ok || !res.headers.has('content-length')){
+            res = await fetch(href, { method: 'GET', headers: { 'Range': 'bytes=0-0' } });
+          }
+          const len = res.headers.get('content-length');
+          const type = res.headers.get('content-type') || 'application/octet-stream';
+          const modified = res.headers.get('last-modified');
+
+          const parts = [];
+          if(type) parts.push(type.split(';')[0]);
+          if(len) parts.push(human(parseInt(len,10)));
+          if(modified) parts.push(new Date(modified).toLocaleDateString());
+
+          if(!meta.dataset.original) meta.dataset.original = meta.textContent.trim();
+          if(parts.length){
+            meta.textContent = meta.dataset.original + ' — ' + parts.join(' • ');
+            meta.dataset.enhanced = 'true';
+          }
+        }catch(e){
+          // ignore errors; content-length may be unavailable
+          return;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
