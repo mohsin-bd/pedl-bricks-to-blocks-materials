@@ -114,58 +114,48 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Apply translations to elements with data-i18n-key and data-i18n-title
   function applyLang(lang){
-    try{
-      console.info('[i18n] Applying language:', lang);
-      document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
-      // title
-      if(i18n[lang].title){
-        document.title = i18n[lang].title;
-        const titleEl = document.querySelector('title[data-i18n-key="title"]');
-        if(titleEl) titleEl.textContent = i18n[lang].title;
+    document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
+    // title
+    if(i18n[lang].title){
+      document.title = i18n[lang].title;
+      const titleEl = document.querySelector('title[data-i18n-key="title"]');
+      if(titleEl) titleEl.textContent = i18n[lang].title;
+    }
+    // meta description
+    const meta = document.querySelector('meta[name="description"][data-i18n-key="meta_description"]');
+    if(meta) meta.setAttribute('content', i18n[lang].meta_description);
+
+    // update text and innerHTML (rich content allowed)
+    document.querySelectorAll('[data-i18n-key]').forEach(el=>{
+      const key = el.dataset.i18nKey;
+      if(i18n[lang][key] !== undefined){
+        el.innerHTML = i18n[lang][key];
       }
-      // meta description
-      const meta = document.querySelector('meta[name="description"][data-i18n-key="meta_description"]');
-      if(meta) meta.setAttribute('content', i18n[lang].meta_description);
+    });
 
-      // update text and innerHTML (rich content allowed)
-      let applied = 0;
-      document.querySelectorAll('[data-i18n-key]').forEach(el=>{
-        const key = el.dataset.i18nKey;
-        if(i18n[lang][key] !== undefined){
-          el.innerHTML = i18n[lang][key];
-          applied++;
-        }
-      });
-      console.debug('[i18n] Updated elements:', applied);
-
-      // update element titles from data-i18n-title
-      document.querySelectorAll('[data-i18n-title]').forEach(el=>{
-        const key = el.dataset.i18nTitle;
-        if(i18n[lang][key] !== undefined){
-          el.setAttribute('title', i18n[lang][key]);
-        }
-      });
-
-      // update aria-labels from data-i18n-aria
-      document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
-        const key = el.dataset.i18nAria;
-        if(i18n[lang][key] !== undefined){
-          el.setAttribute('aria-label', i18n[lang][key]);
-        }
-      });
-
-      // Update lang toggle text and aria-pressed
-      const toggle = document.getElementById('lang-toggle');
-      if(toggle){
-        const sr = i18n[lang].lang_toggle_sr || '(language)';
-        toggle.innerHTML = i18n[lang].lang_toggle + ' <span class="sr-only">' + sr + '</span>';
-        toggle.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
-        toggle.setAttribute('title', i18n[lang].lang_toggle_title || toggle.getAttribute('title'));
-        // expose current lang on data attribute for easier debugging
-        toggle.setAttribute('data-current-lang', lang);
+    // update element titles from data-i18n-title
+    document.querySelectorAll('[data-i18n-title]').forEach(el=>{
+      const key = el.dataset.i18nTitle;
+      if(i18n[lang][key] !== undefined){
+        el.setAttribute('title', i18n[lang][key]);
       }
-    }catch(err){
-      console.error('[i18n] Error applying language', err);
+    });
+
+    // update aria-labels from data-i18n-aria
+    document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+      const key = el.dataset.i18nAria;
+      if(i18n[lang][key] !== undefined){
+        el.setAttribute('aria-label', i18n[lang][key]);
+      }
+    });
+
+    // Update lang toggle text and aria-pressed
+    const toggle = document.getElementById('lang-toggle');
+    if(toggle){
+      const sr = i18n[lang].lang_toggle_sr || '(language)';
+      toggle.innerHTML = i18n[lang].lang_toggle + ' <span class="sr-only">' + sr + '</span>';
+      toggle.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+      toggle.setAttribute('title', i18n[lang].lang_toggle_title || toggle.getAttribute('title'));
     }
   }
 
@@ -180,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function(){
       // determine current language reliably
       const current = localStorage.getItem('siteLang') || document.documentElement.lang || 'bn';
       const newLang = (current === 'en') ? 'bn' : 'en';
-      console.info('[i18n] Toggle clicked. switching', current, '->', newLang);
       localStorage.setItem('siteLang', newLang);
       lang = newLang; // keep local var in sync
       applyLang(newLang);
