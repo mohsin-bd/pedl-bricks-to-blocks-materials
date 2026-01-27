@@ -108,5 +108,17 @@ a.button.outline:hover{ background:color-mix(in srgb, var(--brand) 6%, transpare
 .skip-link{ position:absolute; left:0; top:0; transform:translateY(-120%); background:var(--card); color:var(--brand-2); padding:8px 12px; z-index:999; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,.06); }
 .skip-link:focus{ transform:translateY(8px); }
 .sr-only{ position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap }
+
+/* Footer styling that follows site design */
+.site-footer{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:18px; padding:12px 14px; border-radius:10px}
+.footer-left{color:var(--muted); font-size:.95rem}
+.footer-right{display:flex; gap:12px; align-items:center}
+.footer-link{padding:8px 12px; border-radius:8px; text-decoration:none; color:var(--brand-2); border:1px solid color-mix(in srgb,var(--brand) 10%, transparent); background:transparent}
+.footer-link:hover{background:color-mix(in srgb,var(--brand) 6%, transparent)}
+@media (max-width:600px){
+  .site-footer{flex-direction:column; align-items:flex-start}
+  .footer-right{width:100%; display:flex; gap:8px}
+  .footer-link{flex:1; text-align:center}
+}
 /* small visual tweaks */
 button, a{font-family:inherit}
