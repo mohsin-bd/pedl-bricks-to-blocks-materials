@@ -1,0 +1,12 @@
+{
+  "name": "pedl-bricks-to-blocks-materials",
+  "version": "1.0.0",
+  "description": "Static site for PEDL: Bricks to Blocks materials",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -c-1",
+    "serve": "npx http-server . -p 8080 -c-1",
+    "audit:accessibility": "npx pa11y-ci http://localhost:8080"
+  },
+  "author": "Md. Mohsin Hossain",
+  "license": "CC-BY-4.0"
+}
