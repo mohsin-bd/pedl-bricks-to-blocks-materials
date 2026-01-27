@@ -17,7 +17,34 @@ body{
   display:flex; min-height:100svh;
 }
 .wrap{margin:auto; padding:32px 20px; width:min(860px, 100%);} 
-header{display:flex; gap:16px; align-items:center; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid color-mix(in srgb, var(--brand) 8%, transparent);}
+header{display:flex; gap:16px; align-items:center; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid color-mix(in srgb, var(--brand) 8%, transparent);} 
+
+/* Header redesign: grouped brand and nav */
+.site-header{display:flex; align-items:center; gap:18px; width:100%}
+.header-left{display:flex; gap:12px; align-items:center}
+.brand{display:flex; flex-direction:column}
+.brand h1{margin:0; font-size:1.45rem; line-height:1.05}
+.brand .sub{margin-top:4px; color:var(--muted); font-size:.95rem}
+
+.nav-group{margin-left:auto; display:flex; gap:10px; align-items:center}
+.nav-actions{display:flex; gap:8px}
+.lang-group{display:flex; align-items:center}
+
+/* Pill style for language toggle to match site vibey pills */
+.lang-pill{padding:8px 12px; border-radius:999px; background:transparent; color:var(--brand-2); border:1px solid color-mix(in srgb, var(--brand) 14%, transparent); font-weight:600}
+.lang-pill:hover{background:color-mix(in srgb, var(--brand) 6%, transparent);}
+.lang-pill[aria-pressed="true"]{background:var(--brand); color:#fff; border-color:var(--brand)}
+
+/* Make small outline buttons match pill sizing */
+.button.small.outline{padding:8px 12px; border-radius:10px}
+
+@media (max-width:600px){
+  .site-header{flex-direction:column; align-items:flex-start; gap:10px}
+  .nav-group{width:100%; justify-content:flex-start}
+  .nav-actions{width:100%; display:flex; gap:8px}
+  .nav-actions a{flex:1}
+  .lang-group{margin-left:0}
+}
 .logo{width:44px; height:44px; border-radius:10px; background:conic-gradient(from 210deg at 60% 40%, var(--brand), var(--brand-2)); display:grid; place-items:center; color:#fff; font-weight:700; letter-spacing:.5px; box-shadow:0 6px 18px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.22);} 
 header nav{ display:flex; gap:8px; margin-left:auto; align-items:center }
 .button.small{ padding:8px 10px; border-radius:10px; font-size:.95rem; box-shadow:none }

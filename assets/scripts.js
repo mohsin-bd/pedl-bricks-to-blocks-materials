@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
       lang_toggle: "English",
       lang_toggle_title: "ইংরেজি দেখুন",
       lang_toggle_aria: "ইংরেজি দেখুন",
+      lang_toggle_sr: "(ভাষা)",
       intro_para1: "এই উদ্যোগটি প্রচলিত ইট উৎপাদন থেকে টেকসই ব্লক উৎপাদনে রূপান্তরকে সহজ করা এবং পরিচ্ছন্ন নির্মাণ প্রযুক্তি গ্রহণে তথ্য ও সমন্বয়ের চ্যালেঞ্জ মোকাবেলা করার লক্ষ্যে কাজ করে।",
       project_info_label: "প্রকল্পের তথ্য ও পটভূমি:",
       project_page_button: "BIGD ওয়েবসাইটে প্রকল্প পৃষ্ঠা দেখুন",
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function(){
       lang_toggle: "বাংলা",
       lang_toggle_title: "বাংলা সংস্করণ দেখুন",
       lang_toggle_aria: "বাংলা সংস্করণ দেখুন",
+      lang_toggle_sr: "(language)",
       intro_para1: "This initiative focuses on the transition from traditional brick production to sustainable block manufacturing, addressing information and coordination challenges in adopting cleaner building technologies.",
       project_info_label: "Project information and background:",
       project_page_button: "View project page on BIGD website",
@@ -145,7 +147,8 @@ document.addEventListener('DOMContentLoaded', function(){
     // Update lang toggle text and aria-pressed
     const toggle = document.getElementById('lang-toggle');
     if(toggle){
-      toggle.textContent = i18n[lang].lang_toggle;
+      const sr = i18n[lang].lang_toggle_sr || '(language)';
+      toggle.innerHTML = i18n[lang].lang_toggle + ' <span class="sr-only">' + sr + '</span>';
       toggle.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
       toggle.setAttribute('title', i18n[lang].lang_toggle_title || toggle.getAttribute('title'));
     }
