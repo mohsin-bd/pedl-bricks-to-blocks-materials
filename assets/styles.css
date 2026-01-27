@@ -26,6 +26,28 @@ h1{margin:0; font-size:1.6rem; line-height:1.2}
 .card{background:var(--card); border-radius:16px; padding:22px; box-shadow:0 20px 40px rgba(0,0,0,.06), 0 1px 0 rgba(255,255,255,.25) inset; border:1px solid color-mix(in srgb, var(--brand) 12%, transparent);} 
 .actions{display:grid; grid-template-columns:1fr; gap:12px; margin:14px 0 6px}
 @media (min-width:600px){ .actions{grid-template-columns:1fr 1fr 1fr} }
+
+/* Mobile improvements */
+@media (max-width:600px){
+  .wrap{ padding:18px 14px; }
+  header{ flex-direction:column; align-items:flex-start; gap:10px; }
+  .logo{ width:40px; height:40px }
+  h1{ font-size:1.25rem }
+  .sub{ font-size:0.95rem }
+
+  /* Move nav below title and make buttons compact / full-width when needed */
+  header nav{ margin-left:0; margin-top:6px; width:100%; display:flex; gap:8px; }
+  header nav a{ flex:1; padding:8px 10px; border-radius:10px; text-align:center; }
+
+  /* Make top download buttons and resource cards breathe better on small screens */
+  .actions{ grid-template-columns:1fr; gap:10px }
+  a.button{ padding:12px 14px }
+  .resource-item{ padding:10px; }
+  .resource-item div[style]{ min-width:30px }
+
+  /* Slightly reduce the card padding for small screens */
+  .card{ padding:14px }
+}
 a.button{display:flex; align-items:center; gap:10px; justify-content:center; padding:14px 16px; border-radius:12px; text-decoration:none; color:#fff; background:var(--brand); border:1px solid rgba(0,0,0,.06); box-shadow:0 8px 20px color-mix(in srgb, var(--brand) 25%, transparent); transition:filter .15s ease, transform .02s ease;} 
 a.button:hover{ filter:brightness(1.06)}
 a.button:active{ transform:translateY(1px) }
