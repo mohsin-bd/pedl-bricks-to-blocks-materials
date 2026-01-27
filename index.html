@@ -207,7 +207,7 @@
           <div style="min-width:36px; display:grid; place-items:center">📄</div>
           <div>
             <div><strong>Block Producer List (PDF)</strong></div>
-            <div class="meta-small">Consolidated list of producers for coordination and outreach — Format: PDF</div>
+            <div class="meta-small">Consolidated list of producers for coordination and outreach — Format: PDF — application/pdf • 275 KB • 1/27/2026</div>
           </div>
         </div>
 
@@ -215,7 +215,7 @@
           <div style="min-width:36px; display:grid; place-items:center">📘</div>
           <div>
             <div><strong>Workshop Training Manual (PDF)</strong></div>
-            <div class="meta-small">Presentation and training manual — Format: PDF</div>
+            <div class="meta-small">Presentation and training manual — Format: PDF — application/pdf • 19.9 MB • 1/27/2026</div>
           </div>
         </div>
 
@@ -223,7 +223,7 @@
           <div style="min-width:36px; display:grid; place-items:center">📗</div>
           <div>
             <div><strong>PEDL B2B Workshop Booklet (PDF)</strong></div>
-            <div class="meta-small">Workshop booklet with training materials and resources — Format: PDF</div>
+            <div class="meta-small">Workshop booklet with training materials and resources — Format: PDF — application/pdf • 11.9 MB • 1/27/2026</div>
           </div>
         </div>
       </div>
@@ -241,58 +241,7 @@
     </section>
   </main>
 
-  <script>
-    // Fetch Content-Length and Content-Type for downloadable resources and display size
-    (function(){
-      function human(bytes){
-        if(!bytes) return '—';
-        const thresh = 1024;
-        if(bytes < thresh) return bytes + ' B';
-        const units = ['KB','MB','GB','TB'];
-        let u = -1;
-        do{ bytes /= thresh; ++u } while(bytes >= thresh && u < units.length-1);
-        return bytes.toFixed( (u<1)?0:1 ) + ' ' + units[u];
-      }
-
-      const links = Array.from(document.querySelectorAll('.actions a[download]'));
-      links.forEach(async a => {
-        try{
-          const href = a.getAttribute('href');
-          const filename = decodeURIComponent(href.split('/').pop());
-
-          // find matching resource-item by data-filename
-          const target = document.querySelector(`.resource-item[data-filename="${filename}"]`);
-          if(!target) return;
-
-          const meta = target.querySelector('.meta-small');
-          if(!meta) return;
-          if(meta.dataset.enhanced === 'true') return; // already added
-
-          // Use HEAD request to obtain headers; fallback to GET with range if HEAD blocked
-          let res = await fetch(href, { method: 'HEAD' });
-          if(!res.ok || !res.headers.has('content-length')){
-            res = await fetch(href, { method: 'GET', headers: { 'Range': 'bytes=0-0' } });
-          }
-          const len = res.headers.get('content-length');
-          const type = res.headers.get('content-type') || 'application/octet-stream';
-          const modified = res.headers.get('last-modified');
-
-          const parts = [];
-          if(type) parts.push(type.split(';')[0]);
-          if(len) parts.push(human(parseInt(len,10)));
-          if(modified) parts.push(new Date(modified).toLocaleDateString());
-
-          if(!meta.dataset.original) meta.dataset.original = meta.textContent.trim();
-          if(parts.length){
-            meta.textContent = meta.dataset.original + ' — ' + parts.join(' • ');
-            meta.dataset.enhanced = 'true';
-          }
-        }catch(e){
-          // ignore errors; content-length may be unavailable
-          return;
-        }
-      });
-    })();
-  </script>
+</body>
+</html>
 </body>
 </html>
