@@ -113,7 +113,9 @@ a.button.outline:hover{ background:color-mix(in srgb, var(--brand) 6%, transpare
 .site-footer{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:18px; padding:12px 14px; border-radius:10px}
 .footer-left{color:var(--muted); font-size:.95rem}
 .footer-right{display:flex; gap:12px; align-items:center}
-.footer-link{padding:8px 12px; border-radius:8px; text-decoration:none; color:var(--brand-2); border:1px solid color-mix(in srgb,var(--brand) 10%, transparent); background:transparent}
+.footer-link{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; text-decoration:none; color:var(--brand-2); border:1px solid color-mix(in srgb,var(--brand) 10%, transparent); background:transparent}
+.footer-url{color:var(--muted); font-size:.92rem; margin-left:6px; opacity:.95}
+.footer-name{font-weight:600}
 .footer-link:hover{background:color-mix(in srgb,var(--brand) 6%, transparent)}
 @media (max-width:600px){
   .site-footer{flex-direction:column; align-items:flex-start}
