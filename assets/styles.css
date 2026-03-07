@@ -113,20 +113,19 @@ p {
 .nav-group {
   margin-left: auto;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .nav-actions {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
 }
 
-.lang-group {
-  display: flex;
-  align-items: center;
+.nav-actions > * {
+  flex: 0 0 auto;
 }
 
 .section-separator {
@@ -268,6 +267,7 @@ a.button.outline:hover {
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .lang-pill:hover {
@@ -472,14 +472,17 @@ a.button.outline:hover {
   .nav-group {
     margin-left: 0;
     width: 100%;
+    flex-shrink: 1;
   }
 
   .nav-actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
   }
 
-  .nav-actions a {
-    flex: 1 1 180px;
+  .nav-actions > * {
+    width: 100%;
   }
 
   .site-footer {
