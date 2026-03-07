@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mohsin-bd.github.io/pedl-bricks-to-blocks-materials/sitemap.xml

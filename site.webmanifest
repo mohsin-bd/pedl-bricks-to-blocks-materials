@@ -1,0 +1,22 @@
+{
+  "name": "PEDL: Bricks to Blocks",
+  "short_name": "PEDL B2B",
+  "description": "Materials and downloads for the PEDL Bricks to Blocks project.",
+  "start_url": "/pedl-bricks-to-blocks-materials/",
+  "scope": "/pedl-bricks-to-blocks-materials/",
+  "display": "standalone",
+  "background_color": "#f0fdf4",
+  "theme_color": "#047857",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

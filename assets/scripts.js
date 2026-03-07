@@ -1,184 +1,204 @@
-// Minimal site JS for accessibility, small behaviors and language toggle
-document.addEventListener('DOMContentLoaded', function(){
-  // Ensure skip link focuses main
-  const skip = document.querySelector('.skip-link');
-  if(skip){
-    skip.addEventListener('click', function(){
-      const main = document.getElementById('main');
-      if(main){ main.setAttribute('tabindex','-1'); main.focus(); }
-    });
-  }
-
-  // Improve keyboard focus for header nav items (links and buttons)
-  const headerBtns = document.querySelectorAll('header nav a, header nav button');
-  headerBtns.forEach(btn => btn.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); btn.click(); }
-  }));
-
-  // Simple i18n strings for Bengali (bn) and English (en)
+(() => {
   const i18n = {
     bn: {
-      title: "PEDL: ইট থেকে ব্লক — উপকরণ",
-      meta_description: "PEDL: ইট থেকে ব্লক — উন্মুক্ত উপকরণ: ব্লক উৎপাদনকারীদের তালিকা (PDF) ও ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল (PDF)।",
-      h1: "PEDL: ইট থেকে ব্লক — উপকরণ",
-      sub: "মাঠকর্মী, অংশীদার ও স্টেকহোল্ডারদের জন্য উন্মুক্ত ডাউনলোড",
+      title: "PEDL: ইট থেকে ব্লক - উপকরণ ও ডাউনলোড",
+      og_title: "PEDL: ইট থেকে ব্লক - উপকরণ ও ডাউনলোড",
+      meta_description: "PEDL: ইট থেকে ব্লক প্রকল্পের উন্মুক্ত উপকরণ, ডাউনলোড এবং রেফারেন্স নথি এক জায়গায়।",
+      h1: "PEDL: ইট থেকে ব্লক - উপকরণ ও ডাউনলোড",
+      sub: "ক্ষেত্রকর্মী, অংশীদার ও স্টেকহোল্ডারদের জন্য উন্মুক্ত ডাউনলোড",
       skip_link: "মূল বিষয়বস্তুতে যান",
       "nav.project": "প্রকল্প পৃষ্ঠা",
       "nav.project_title": "BIGD-এ প্রকল্প পৃষ্ঠা দেখুন",
       "nav.downloads": "ডাউনলোড",
       "nav.downloads_title": "ডাউনলোড বিভাগে যান",
       lang_toggle: "English",
-      lang_toggle_title: "ইংরেজি দেখুন",
-      lang_toggle_aria: "ইংরেজি দেখুন",
-      lang_toggle_sr: "(ভাষা)",
+      lang_toggle_title: "ইংরেজি সংস্করণ দেখুন",
+      lang_toggle_aria: "ইংরেজি সংস্করণ দেখুন",
+      lang_toggle_sr: "(ভাষা পরিবর্তন)",
       intro_para1: "এই উদ্যোগটি প্রচলিত ইট উৎপাদন থেকে টেকসই ব্লক উৎপাদনে রূপান্তরকে সহজ করা এবং পরিচ্ছন্ন নির্মাণ প্রযুক্তি গ্রহণে তথ্য ও সমন্বয়ের চ্যালেঞ্জ মোকাবেলা করার লক্ষ্যে কাজ করে।",
       project_info_label: "প্রকল্পের তথ্য ও পটভূমি:",
       project_page_button: "BIGD ওয়েবসাইটে প্রকল্প পৃষ্ঠা দেখুন",
+      project_page_button_title: "BIGD ওয়েবসাইটে প্রকল্প পৃষ্ঠা দেখুন",
+      contents_heading: "এই রিপোজিটরিতে কী আছে?",
       summary: "এই রিপোজিটরিতে কী আছে?",
       bpl_title: "ব্লক উৎপাদনকারীদের তালিকা (PDF)",
-      bpl_desc: "সমন্বয় ও যোগাযোগের জন্য একত্রিত উৎপাদকদের তালিকা।",
-      manual_title: "ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল (PDF)",
-      manual_desc: "নীতিগত প্রেক্ষাপট ও ব্লক ব্যবহারের ওপর আলোচনা সহ প্রশিক্ষণ ম্যানুয়াল।",
+      bpl_desc: "সমন্বয় ও যোগাযোগের জন্য একত্রিত উৎপাদকদের তালিকা।",
+      manual_title: "ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল (PDF)",
+      manual_desc: "নীতিগত প্রেক্ষাপট ও ব্লক ব্যবহারের ওপর আলোচনা সহ প্রশিক্ষণ উপকরণ।",
       booklet_title: "ওয়ার্কশপ বুকলেট (PDF)",
       booklet_desc: "প্রশিক্ষণ উপকরণ ও অন্যান্য তথ্যসম্বলিত PEDL B2B ওয়ার্কশপ বুকলেট।",
       downloads: "ডাউনলোড",
+      downloads_note: "সব নথি সরাসরি ডাউনলোডযোগ্য এবং PDF ফরম্যাটে দেওয়া হয়েছে।",
       bpl_button: "ব্লক উৎপাদনকারীদের তালিকা",
       manual_button: "প্রশিক্ষণ ম্যানুয়াল",
       booklet_button: "ওয়ার্কশপ বুকলেট",
+      pdf_label: "PDF",
       bpl_desc_sr: "PDF ডাউনলোড। ব্লক উৎপাদনকারীদের তালিকা ডাউনলোড করতে ক্লিক করুন।",
-      manual_desc_sr: "PDF ডাউনলোড। ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল ডাউনলোড করতে ক্লিক করুন।",
+      manual_desc_sr: "PDF ডাউনলোড। ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল ডাউনলোড করতে ক্লিক করুন।",
       booklet_desc_sr: "PDF ডাউনলোড। ওয়ার্কশপ বুকলেট ডাউনলোড করতে ক্লিক করুন।",
-      bpl_meta: "সমন্বয় ও যোগাযোগের জন্য একত্রিত তালিকা — ফরম্যাট: PDF — application/pdf • 275 KB • 1/27/2026",
-      manual_meta: "প্রেজেন্টেশন ও প্রশিক্ষণ ম্যানুয়াল — ফরম্যাট: PDF — application/pdf • 19.9 MB • 1/27/2026",
-      booklet_meta: "ওয়ার্কশপ বুকলেট — ফরম্যাট: PDF — application/pdf • 11.9 MB • 1/27/2026",
-      meta_updated: "আপডেট: 2026-01-16",
-      compiled_by: "সংকলন: <strong><a class=\"compiled-link\" href=\"https://mdmohsinhossain.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\" data-i18n-aria=\"site_link_aria\">Md. Mohsin Hossain</a></strong>, সিনিয়র রিসার্চ অ্যাসোসিয়েট",
-      footer_contact: "প্রতিক্রিয়া বা আপডেট সংস্করণ সম্পর্কে জানতে বা জানাতে ইমেইল করুন: <a href=\"mailto:mohsin.hossain@bracu.ac.bd\">mohsin.hossain@bracu.ac.bd</a>. উৎস উল্লেখ করে পুনর্বণ্টন করা যাবে।",      site_link: "Md. Mohsin Hossain",
-      site_href: "https://mdmohsinhossain.github.io/",
+      bpl_meta: "সমন্বয় ও আউটরিচের জন্য একত্রিত তালিকা - PDF - 275 KB",
+      manual_meta: "প্রেজেন্টেশন ও প্রশিক্ষণ উপকরণ - PDF - 20.8 MB",
+      booklet_meta: "ওয়ার্কশপ বুকলেট - PDF - 12.5 MB",
+      meta_updated_label: "আপডেট:",
+      compiled_by_label: "সংকলন:",
+      compiled_by_role: ", সিনিয়র রিসার্চ অ্যাসোসিয়েট",
+      institution: "BIGD, BRAC University",
+      footer_contact_prefix: "প্রতিক্রিয়া বা আপডেট সংস্করণ জানাতে ইমেইল করুন:",
+      footer_contact_suffix: "। উৎস উল্লেখ করে পুনর্বণ্টন করা যাবে।",
       site_link_aria: "Md. Mohsin Hossain-এর ওয়েবসাইট খুলুন",
+      email_aria: "মোহসিন হোসাইনের ইমেইল ঠিকানায় যোগাযোগ করুন",
       license: "লাইসেন্স: CC BY 4.0 (প্রস্তাবিত)",
-      bpl_aria: "ব্লক উৎপাদনকারীদের তালিকা ডাউনলোড করুন",
-      manual_aria: "ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল ডাউনলোড করুন",
-      booklet_aria: "ওয়ার্কশপ বুকলেট ডাউনলোড করুন",
-      project_page_aria: "BIGD-এ প্রকল্প পৃষ্ঠা দেখুন",
-      email_aria: "ইমেইল করুন"
+      bpl_download_title: "ব্লক উৎপাদনকারীদের তালিকা ডাউনলোড করুন",
+      manual_download_title: "ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল ডাউনলোড করুন",
+      booklet_download_title: "ওয়ার্কশপ বুকলেট ডাউনলোড করুন",
+      bpl_aria: "ব্লক উৎপাদনকারীদের তালিকা PDF ডাউনলোড করুন",
+      manual_aria: "ওয়ার্কশপ প্রশিক্ষণ ম্যানুয়াল PDF ডাউনলোড করুন",
+      booklet_aria: "ওয়ার্কশপ বুকলেট PDF ডাউনলোড করুন",
+      project_page_aria: "BIGD-এ প্রকল্প পৃষ্ঠা দেখুন"
     },
     en: {
-      title: "PEDL: Bricks to Blocks – Materials",
-      meta_description: "Open materials for PEDL: Bricks to Blocks — Block Producer List and Workshop Training Manual Presentation.",
-      h1: "PEDL: Bricks to Blocks – Materials",
-      sub: "Open access downloads for field teams, partners, and stakeholders",
+      title: "PEDL: Bricks to Blocks - Materials & Downloads",
+      og_title: "PEDL: Bricks to Blocks - Materials & Downloads",
+      meta_description: "Open PEDL materials, downloads, and reference documents in one place.",
+      h1: "PEDL: Bricks to Blocks - Materials & Downloads",
+      sub: "Open downloads for field teams, partners, and stakeholders",
       skip_link: "Skip to main content",
       "nav.project": "Project page",
-      "nav.project_title": "Project page on BIGD",
+      "nav.project_title": "View the BIGD project page",
       "nav.downloads": "Downloads",
-      "nav.downloads_title": "Jump to Downloads",
+      "nav.downloads_title": "Jump to the downloads section",
       lang_toggle: "বাংলা",
-      lang_toggle_title: "বাংলা সংস্করণ দেখুন",
-      lang_toggle_aria: "বাংলা সংস্করণ দেখুন",
-      lang_toggle_sr: "(language)",
-      intro_para1: "This initiative focuses on the transition from traditional brick production to sustainable block manufacturing, addressing information and coordination challenges in adopting cleaner building technologies.",
+      lang_toggle_title: "Switch to the Bangla version",
+      lang_toggle_aria: "Switch to the Bangla version",
+      lang_toggle_sr: "(change language)",
+      intro_para1: "This initiative supports the transition from traditional brick production to sustainable block manufacturing while addressing information and coordination barriers to cleaner building technologies.",
       project_info_label: "Project information and background:",
-      project_page_button: "View project page on BIGD website",
-      summary: "What's stored here in this repository?",
+      project_page_button: "View the project page on the BIGD website",
+      project_page_button_title: "View the project page on the BIGD website",
+      contents_heading: "What is available in this repository?",
+      summary: "What is available in this repository?",
       bpl_title: "Block Producer List (PDF)",
-      bpl_desc: "Consolidated list of producers for coordination and outreach.",
-      manual_title: "Workshop Training Manual Presentation (PDF)",
-      manual_desc: "Presentation and training manual — with discussion about the policy context and manual focused on block use.",
+      bpl_desc: "A consolidated producer list for coordination and outreach.",
+      manual_title: "Workshop Training Manual (PDF)",
+      manual_desc: "Training materials covering policy context and practical block-use guidance.",
       booklet_title: "Workshop Booklet (PDF)",
-      booklet_desc: "PEDL B2B Workshop booklet with training materials and resources.",
+      booklet_desc: "PEDL B2B workshop booklet with training materials and supporting information.",
       downloads: "Downloads",
+      downloads_note: "Each document is available as a direct PDF download.",
       bpl_button: "Block Producer List",
       manual_button: "Training Manual",
       booklet_button: "Workshop Booklet",
-      bpl_desc_sr: "PDF download. Click to download the Block Producer List.",
-      manual_desc_sr: "PDF download. Click to download the Workshop Training Manual.",
-      booklet_desc_sr: "PDF download. Click to download the Workshop Booklet.",
-      bpl_meta: "Consolidated list of producers for coordination and outreach — Format: PDF — application/pdf • 275 KB • 1/27/2026",
-      manual_meta: "Presentation and training manual — Format: PDF — application/pdf • 19.9 MB • 1/27/2026",
-      booklet_meta: "Workshop booklet with training materials and resources — Format: PDF — application/pdf • 11.9 MB • 1/27/2026",
-      meta_updated: "Updated: 2026-01-16",
-      compiled_by: "Compiled by: <strong><a class=\"compiled-link\" href=\"https://mdmohsinhossain.github.io/\" target=\"_blank\" rel=\"noopener noreferrer\" data-i18n-aria=\"site_link_aria\">Md. Mohsin Hossain</a></strong> Senior Research Associate",
-      footer_contact: "For feedback or updated versions, please contact at <a href=\"mailto:mohsin.hossain@bracu.ac.bd\">mohsin.hossain@bracu.ac.bd</a>. You may redistribute with attribution.",
-      site_link: "Md. Mohsin Hossain",
-      site_href: "https://mdmohsinhossain.github.io/",
+      pdf_label: "PDF",
+      bpl_desc_sr: "PDF download. Activate to download the Block Producer List.",
+      manual_desc_sr: "PDF download. Activate to download the Workshop Training Manual.",
+      booklet_desc_sr: "PDF download. Activate to download the Workshop Booklet.",
+      bpl_meta: "Consolidated list for coordination and outreach - PDF - 275 KB",
+      manual_meta: "Presentation and training materials - PDF - 20.8 MB",
+      booklet_meta: "Workshop booklet - PDF - 12.5 MB",
+      meta_updated_label: "Updated:",
+      compiled_by_label: "Compiled by:",
+      compiled_by_role: ", Senior Research Associate",
+      institution: "BIGD, BRAC University",
+      footer_contact_prefix: "For feedback or updated versions, email:",
+      footer_contact_suffix: ". Redistribution is allowed with attribution.",
       site_link_aria: "Open Md. Mohsin Hossain's website",
+      email_aria: "Email Mohsin Hossain",
       license: "License: CC BY 4.0 (recommended)",
-      bpl_aria: "Download Block Producer List PDF",
-      manual_aria: "Download Training Manual PDF",
-      booklet_aria: "Download Workshop Booklet PDF",
-      project_page_aria: "View project page on BIGD website",
-      email_aria: "Email Mohsin Hossain"
+      bpl_download_title: "Download the Block Producer List PDF",
+      manual_download_title: "Download the Workshop Training Manual PDF",
+      booklet_download_title: "Download the Workshop Booklet PDF",
+      bpl_aria: "Download the Block Producer List PDF",
+      manual_aria: "Download the Workshop Training Manual PDF",
+      booklet_aria: "Download the Workshop Booklet PDF",
+      project_page_aria: "View the BIGD project page"
     }
   };
 
-  // Apply translations to elements with data-i18n-key and data-i18n-title
-  function applyLang(lang){
-    document.documentElement.lang = (lang === 'bn') ? 'bn' : 'en';
-    // title
-    if(i18n[lang].title){
-      document.title = i18n[lang].title;
-      const titleEl = document.querySelector('title[data-i18n-key="title"]');
-      if(titleEl) titleEl.textContent = i18n[lang].title;
+  const storage = {
+    get() {
+      try {
+        return window.localStorage.getItem("siteLang");
+      } catch {
+        return null;
+      }
+    },
+    set(value) {
+      try {
+        window.localStorage.setItem("siteLang", value);
+      } catch {
+        return;
+      }
     }
-    // meta description
-    const meta = document.querySelector('meta[name="description"][data-i18n-key="meta_description"]');
-    if(meta) meta.setAttribute('content', i18n[lang].meta_description);
+  };
 
-    // update text and innerHTML (rich content allowed)
-    document.querySelectorAll('[data-i18n-key]').forEach(el=>{
-      const key = el.dataset.i18nKey;
-      if(i18n[lang][key] !== undefined){
-        el.innerHTML = i18n[lang][key];
+  const applyLang = (lang) => {
+    const dict = i18n[lang] || i18n.bn;
+
+    document.documentElement.lang = lang === "en" ? "en" : "bn";
+
+    const titleElement = document.querySelector("title[data-i18n-key]");
+    if (titleElement && dict.title) {
+      titleElement.textContent = dict.title;
+      document.title = dict.title;
+    }
+
+    document.querySelectorAll("[data-i18n-key]").forEach((element) => {
+      const key = element.dataset.i18nKey;
+      if (key !== "title" && dict[key] !== undefined) {
+        element.textContent = dict[key];
       }
     });
 
-    // update element titles from data-i18n-title
-    document.querySelectorAll('[data-i18n-title]').forEach(el=>{
-      const key = el.dataset.i18nTitle;
-      if(i18n[lang][key] !== undefined){
-        el.setAttribute('title', i18n[lang][key]);
+    document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+      const key = element.dataset.i18nTitle;
+      if (dict[key] !== undefined) {
+        element.setAttribute("title", dict[key]);
       }
     });
 
-    // update aria-labels from data-i18n-aria
-    document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
-      const key = el.dataset.i18nAria;
-      if(i18n[lang][key] !== undefined){
-        el.setAttribute('aria-label', i18n[lang][key]);
+    document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
+      const key = element.dataset.i18nAria;
+      if (dict[key] !== undefined) {
+        element.setAttribute("aria-label", dict[key]);
       }
     });
 
-    // Update lang toggle text and aria-pressed
-    const toggle = document.getElementById('lang-toggle');
-    if(toggle){
-      const sr = i18n[lang].lang_toggle_sr || '(language)';
-      toggle.innerHTML = i18n[lang].lang_toggle + ' <span class="sr-only">' + sr + '</span>';
-      toggle.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
-      toggle.setAttribute('title', i18n[lang].lang_toggle_title || toggle.getAttribute('title'));
-    }
-  }
-
-  // Initialize language from localStorage (default bn)
-  let lang = localStorage.getItem('siteLang') || 'bn';
-  applyLang(lang);
-
-  // Wire up the language toggle button (more robust)
-  const langToggle = document.getElementById('lang-toggle');
-  if(langToggle){
-    langToggle.addEventListener('click', function(){
-      // determine current language reliably
-      const current = localStorage.getItem('siteLang') || document.documentElement.lang || 'bn';
-      const newLang = (current === 'en') ? 'bn' : 'en';
-      localStorage.setItem('siteLang', newLang);
-      lang = newLang; // keep local var in sync
-      applyLang(newLang);
+    document.querySelectorAll("[data-i18n-content]").forEach((element) => {
+      const key = element.dataset.i18nContent;
+      if (dict[key] !== undefined) {
+        element.setAttribute("content", dict[key]);
+      }
     });
-    // ensure aria-label for the toggle exists and is translated
-    // provide fallback if translation missing
-    if(!langToggle.getAttribute('aria-label')){
-      langToggle.setAttribute('aria-label', 'Toggle language');
-    }
-  }
 
-});
+    const langToggle = document.getElementById("lang-toggle");
+    if (langToggle) {
+      langToggle.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const skipLink = document.querySelector(".skip-link");
+    if (skipLink) {
+      skipLink.addEventListener("click", () => {
+        const main = document.getElementById("main");
+        if (main) {
+          main.setAttribute("tabindex", "-1");
+          main.focus();
+        }
+      });
+    }
+
+    const currentLang = storage.get() || "bn";
+    applyLang(currentLang);
+
+    const langToggle = document.getElementById("lang-toggle");
+    if (langToggle) {
+      langToggle.addEventListener("click", () => {
+        const activeLang = storage.get() || document.documentElement.lang || "bn";
+        const nextLang = activeLang === "en" ? "bn" : "en";
+        storage.set(nextLang);
+        applyLang(nextLang);
+      });
+    }
+  });
+})();
