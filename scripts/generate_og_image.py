@@ -1,3 +1,8 @@
+"""Generate the open graph image used by the static site metadata."""
+
+from __future__ import annotations
+
+import argparse
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -5,19 +10,20 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = ROOT / "assets"
-OUTPUT_PATH = ASSETS_DIR / "og-image.png"
 
 WIDTH = 1200
 HEIGHT = 630
 
-BG_TOP = "#f0fdf4"
-BG_BOTTOM = "#dcfce7"
-CARD = "#ffffff"
-BRAND = "#047857"
-BRAND_STRONG = "#065f46"
-INK = "#1c1e21"
-MUTED = "#4b5563"
-WHITE = "#ffffff"
+PALETTE = {
+    "bg_top": "#f0fdf4",
+    "bg_bottom": "#dcfce7",
+    "card": "#ffffff",
+    "brand": "#047857",
+    "brand_strong": "#065f46",
+    "ink": "#1c1e21",
+    "muted": "#4b5563",
+    "white": "#ffffff",
+}
 
 CARD_RECT = (70, 70, WIDTH - 70, HEIGHT - 70)
 BADGE_RECT = (110, 110, 290, 290)
@@ -25,14 +31,19 @@ CONTENT_X = 340
 CONTENT_MAX_WIDTH = 680
 BUTTON_Y_GAP = 40
 
-TITLE_LINES = [
-    "Bricks to Blocks",
-    "Materials & Downloads",
-]
-DESCRIPTION = (
-    "Open project materials, reference documents, and direct PDF downloads in one place."
-)
+TITLE_LINES = ["Bricks to Blocks", "Materials & Downloads"]
+DESCRIPTION = "Open project materials, reference documents, and direct PDF downloads in one place."
 BUTTON_LABEL = "Download PDFs"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--output",
+        default=str(ASSETS_DIR / "og-image.png"),
+        help="Output path for the generated OG image.",
+    )
+    return parser.parse_args()
 
 
 def load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
@@ -90,8 +101,8 @@ def fit_wrapped_text(
 
 def draw_background(image: Image.Image) -> None:
     pixels = image.load()
-    top = hex_to_rgb(BG_TOP)
-    bottom = hex_to_rgb(BG_BOTTOM)
+    top = hex_to_rgb(PALETTE["bg_top"])
+    bottom = hex_to_rgb(PALETTE["bg_bottom"])
     for y in range(HEIGHT):
         color = interpolate_rgb(top, bottom, y / max(HEIGHT - 1, 1))
         for x in range(WIDTH):
@@ -99,20 +110,24 @@ def draw_background(image: Image.Image) -> None:
 
 
 def main() -> None:
-    ASSETS_DIR.mkdir(exist_ok=True)
+    args = parse_args()
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    image = Image.new("RGB", (WIDTH, HEIGHT), BG_TOP)
+    image = Image.new("RGB", (WIDTH, HEIGHT), PALETTE["bg_top"])
     draw_background(image)
     draw = ImageDraw.Draw(image)
 
-    draw.rounded_rectangle(CARD_RECT, radius=42, outline=BRAND, width=3, fill=CARD)
-    draw.rounded_rectangle(BADGE_RECT, radius=36, fill=BRAND)
+    draw.rounded_rectangle(
+        CARD_RECT, radius=42, outline=PALETTE["brand"], width=3, fill=PALETTE["card"]
+    )
+    draw.rounded_rectangle(BADGE_RECT, radius=36, fill=PALETTE["brand"])
 
     badge_font = load_font(84, bold=True)
     badge_bbox = draw.textbbox((0, 0), "B2B", font=badge_font)
     badge_x = (BADGE_RECT[0] + BADGE_RECT[2] - (badge_bbox[2] - badge_bbox[0])) / 2
     badge_y = (BADGE_RECT[1] + BADGE_RECT[3] - (badge_bbox[3] - badge_bbox[1])) / 2 - 10
-    draw.text((badge_x, badge_y), "B2B", font=badge_font, fill=WHITE)
+    draw.text((badge_x, badge_y), "B2B", font=badge_font, fill=PALETTE["white"])
 
     kicker_font = load_font(26, bold=True)
     title_font = load_font(56, bold=True)
@@ -125,19 +140,19 @@ def main() -> None:
     )
     button_font = load_font(28, bold=True)
 
-    draw.text((CONTENT_X, 135), "PEDL", font=kicker_font, fill=BRAND_STRONG)
+    draw.text((CONTENT_X, 135), "PEDL", font=kicker_font, fill=PALETTE["brand_strong"])
 
     title_y = 180
     line_gap = 16
     for line in TITLE_LINES:
-        draw.text((CONTENT_X, title_y), line, font=title_font, fill=INK)
+        draw.text((CONTENT_X, title_y), line, font=title_font, fill=PALETTE["ink"])
         line_height = draw.textbbox((0, 0), line, font=title_font)[3]
         title_y += line_height + line_gap
 
     description_y = 360
     description_line_gap = 10
     for line in description_lines:
-        draw.text((CONTENT_X, description_y), line, font=description_font, fill=MUTED)
+        draw.text((CONTENT_X, description_y), line, font=description_font, fill=PALETTE["muted"])
         line_height = draw.textbbox((0, 0), line, font=description_font)[3]
         description_y += line_height + description_line_gap
 
@@ -150,14 +165,14 @@ def main() -> None:
         CONTENT_X + button_width,
         description_y + BUTTON_Y_GAP + button_height,
     )
-    draw.rounded_rectangle(button_rect, radius=18, fill=BRAND)
+    draw.rounded_rectangle(button_rect, radius=18, fill=PALETTE["brand"])
     text_x = button_rect[0] + (button_width - (button_bbox[2] - button_bbox[0])) / 2
     text_y = button_rect[1] + (button_height - (button_bbox[3] - button_bbox[1])) / 2 - 4
-    draw.text((text_x, text_y), BUTTON_LABEL, font=button_font, fill=WHITE)
+    draw.text((text_x, text_y), BUTTON_LABEL, font=button_font, fill=PALETTE["white"])
 
-    image.save(OUTPUT_PATH, optimize=True)
+    image.save(output_path, optimize=True)
 
-    print(f"Generated: {OUTPUT_PATH}")
+    print(f"Generated: {output_path}")
     print(f"Description lines: {description_lines}")
     print(f"Button width: {button_width}")
 

@@ -1,0 +1,106 @@
+/* Page-specific rules are kept minimal because the site only ships two layouts. */
+.not-found-wrap {
+  width: min(760px, 100%);
+}
+
+.not-found-card {
+  text-align: center;
+}
+
+.not-found-card .logo {
+  margin: 0 auto 18px;
+}
+
+.not-found-card h1 {
+  margin: 0 0 12px;
+}
+
+.not-found-card p {
+  max-width: 58ch;
+  margin: 0 auto 14px;
+}
+
+.not-found-card .actions {
+  max-width: 640px;
+  margin-top: 24px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 600px) {
+  .actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .not-found-card .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 700px) {
+  .resources {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .resources {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Responsive overrides are grouped so mobile behavior can be reviewed in one place. */
+@media (max-width: 700px) {
+  .wrap {
+    padding: 20px 14px;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .brand h1 {
+    font-size: 1.25rem;
+  }
+
+  .nav-group {
+    width: 100%;
+    margin-left: 0;
+    flex-shrink: 1;
+  }
+
+  .nav-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    width: 100%;
+  }
+
+  .nav-actions > * {
+    width: 100%;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-right {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

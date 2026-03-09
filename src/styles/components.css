@@ -1,0 +1,160 @@
+/* Components are grouped so buttons, cards, and badges stay easy to reason about. */
+.logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: conic-gradient(
+    from 210deg at 60% 40%,
+    var(--brand),
+    var(--brand-strong)
+  );
+  color: #fff;
+  box-shadow:
+    0 6px 18px rgb(0 0 0 / 8%),
+    inset 0 0 0 1px rgb(255 255 255 / 22%);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.button,
+.lang-pill {
+  min-height: 44px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 14px 16px;
+  border: 1px solid rgb(0 0 0 / 6%);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    color 0.15s ease,
+    filter 0.15s ease,
+    transform 0.02s ease;
+}
+
+a.button {
+  color: #fff;
+  background: var(--brand);
+  box-shadow: 0 8px 20px rgb(4 120 87 / 24%);
+}
+
+a.button:hover {
+  color: #fff;
+  filter: brightness(1.04);
+}
+
+a.button:active {
+  transform: translateY(1px);
+}
+
+a.button.secondary {
+  background: #1f2937;
+}
+
+a.button.outline {
+  border: 1.5px solid var(--brand-strong);
+  background: transparent;
+  color: var(--brand-strong);
+  box-shadow: none;
+}
+
+a.button.outline:hover {
+  background: rgb(6 95 70 / 6%);
+  color: var(--brand-strong);
+}
+
+.button.small {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 0.95rem;
+}
+
+.lang-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--brand-strong);
+  white-space: nowrap;
+}
+
+.lang-pill:hover {
+  background: rgb(6 95 70 / 6%);
+}
+
+.resources {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.resource-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgb(0 0 0 / 5%);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 3%);
+}
+
+.resource-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgb(6 95 70 / 8%);
+  color: var(--brand-strong);
+}
+
+.resource-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.resource-item strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.meta-small {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.badge {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgb(6 95 70 / 10%);
+  color: var(--brand-strong);
+  font-size: 0.82rem;
+}
+
+.compiled-link {
+  color: var(--brand-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.compiled-link:hover {
+  text-decoration: underline;
+}

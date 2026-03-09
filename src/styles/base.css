@@ -1,0 +1,69 @@
+/* Base rules keep the generated site stable across pages and browsers. */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgb(4 120 87 / 12%), transparent),
+    var(--bg);
+  font:
+    400 16px/1.5 system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+a,
+button {
+  font-family: inherit;
+}
+
+a {
+  color: var(--brand-strong);
+}
+
+a:hover {
+  color: var(--brand);
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+details[open] summary {
+  margin-bottom: 12px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+summary:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+
+p {
+  margin: 0 0 16px;
+}

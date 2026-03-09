@@ -1,0 +1,13 @@
+/* Design tokens centralize the site's visual language across generated pages. */
+:root,
+[data-theme="mmh_pedl"] {
+  --bg: #f0fdf4;
+  --card: #fff;
+  --ink: #1c1e21;
+  --muted: #4b5563;
+  --brand: #047857;
+  --brand-strong: #065f46;
+  --ring: #a7f3d0;
+  --line: rgb(6 95 70 / 14%);
+  --line-soft: rgb(6 95 70 / 8%);
+}

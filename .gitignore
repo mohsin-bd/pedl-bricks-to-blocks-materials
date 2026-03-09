@@ -5,3 +5,5 @@ desktop.ini
 __pycache__/
 .pytest_cache/
 .vscode/
+logs/
+node_modules/
