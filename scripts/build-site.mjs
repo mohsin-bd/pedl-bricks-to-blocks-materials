@@ -179,24 +179,46 @@ function createHreflangLinks() {
 }
 
 async function bundleStyles() {
-  const lightningBinary =
-    process.platform === "win32"
-      ? rootPath("node_modules", ".bin", "lightningcss.ps1")
-      : rootPath("node_modules", ".bin", "lightningcss");
+  const lightningBinaryUnix = rootPath("node_modules", ".bin", "lightningcss");
+  const lightningBinaryPs1 = rootPath(
+    "node_modules",
+    ".bin",
+    "lightningcss.ps1"
+  );
+  const lightningBinaryCmd = rootPath(
+    "node_modules",
+    ".bin",
+    "lightningcss.cmd"
+  );
 
   if (process.platform === "win32") {
-    await execFileAsync(
-      "pwsh.exe",
-      [
-        "-NoLogo",
-        "-NoProfile",
-        "-Command",
-        `& "${lightningBinary}" "src/styles/index.css" --bundle --minify -o "assets/styles.css"`,
-      ],
-      { cwd: ROOT }
-    );
+    // Try PowerShell Core if available; otherwise fall back to the .cmd shim.
+    try {
+      await execFileAsync(
+        "pwsh.exe",
+        [
+          "-NoLogo",
+          "-NoProfile",
+          "-Command",
+          `& "${lightningBinaryPs1}" "src/styles/index.css" --bundle --minify -o "assets/styles.css"`,
+        ],
+        { cwd: ROOT }
+      );
+    } catch (err) {
+      if (err && err.code === "ENOENT") {
+        await runCommand(lightningBinaryCmd, [
+          "src/styles/index.css",
+          "--bundle",
+          "--minify",
+          "-o",
+          "assets/styles.css",
+        ]);
+      } else {
+        throw err;
+      }
+    }
   } else {
-    await runCommand(lightningBinary, [
+    await runCommand(lightningBinaryUnix, [
       "src/styles/index.css",
       "--bundle",
       "--minify",
@@ -221,6 +243,7 @@ function runCommand(command, args) {
     const child = spawn(command, args, {
       cwd: ROOT,
       stdio: "inherit",
+      shell: process.platform === "win32",
     });
 
     child.on("error", reject);
