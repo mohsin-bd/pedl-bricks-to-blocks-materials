@@ -117,8 +117,7 @@ export const siteConfig = {
         "PEDL: ইট থেকে ব্লক প্রকল্পের উন্মুক্ত উপকরণ, ডাউনলোড এবং রেফারেন্স নথি এক জায়গায়।",
       skipLink: "মূল বিষয়বস্তুতে যান",
       heading: "PEDL: ইট থেকে ব্লক - উপকরণ ও ডাউনলোড",
-      subheading:
-        "মাঠ কর্মী, অংশীদার ও স্টেকহোল্ডারদের জন্য উন্মুক্ত ডাউনলোড",
+      subheading: "মাঠ কর্মী, অংশীদার ও স্টেকহোল্ডারদের জন্য উন্মুক্ত ডাউনলোড",
       intro:
         "এই উদ্যোগটি প্রচলিত ইট উৎপাদন থেকে টেকসই ব্লক উৎপাদনে রূপান্তরকে সহজ করা এবং পরিচ্ছন্ন নির্মাণ প্রযুক্তি গ্রহণে তথ্য ও সমন্বয়ের চ্যালেঞ্জ মোকাবেলা করার লক্ষ্যে কাজ করে।",
       projectInfoLabel: "প্রকল্পের তথ্য ও পটভূমি:",
@@ -130,7 +129,7 @@ export const siteConfig = {
       compiledByLabel: "সংকলন:",
       compiledByRole: ", সিনিয়র রিসার্চ অ্যাসোসিয়েট",
       institution: "BIGD, BRAC University",
-      footerContactPrefix: "প্রতিক্রিয়া বা আপডেট সংস্করণ জানাতে ইমেইল করুন:",
+      footerContactPrefix: "মতামত জানাতে ইমেইল করুন:",
       footerContactSuffix: "। উৎস উল্লেখ করে পুনর্বণ্টন করা যাবে।",
       license: "লাইসেন্স: CC BY 4.0 (প্রস্তাবিত)",
       projectButtonLabel: "BIGD ওয়েবসাইটে প্রকল্প পৃষ্ঠা দেখুন",
@@ -176,7 +175,7 @@ export const siteConfig = {
       compiledByLabel: "Compiled by:",
       compiledByRole: ", Senior Research Associate",
       institution: "BIGD, BRAC University",
-      footerContactPrefix: "For feedback or updated versions, email:",
+      footerContactPrefix: "For feedback, email:",
       footerContactSuffix: ". Redistribution is allowed with attribution.",
       license: "License: CC BY 4.0 (recommended)",
       projectButtonLabel: "View the project page on the BIGD website",

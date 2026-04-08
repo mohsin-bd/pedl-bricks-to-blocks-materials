@@ -136,21 +136,6 @@ export function renderHomePage({ locale, resources }) {
         <span>${escapeHtml(locale.updatedLabel)}</span>
         <time datetime="${escapeHtml(locale.updatedAt)}">${escapeHtml(locale.updatedAt)}</time>
       </span>
-      <span>
-        <span>${escapeHtml(locale.compiledByLabel)}</span>
-        <strong>
-          <a
-            class="compiled-link"
-            href="${escapeHtml(locale.compilerUrl)}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ${escapeHtml(locale.compilerName)}
-          </a>
-        </strong>
-        <span>${escapeHtml(locale.compiledByRole)}</span>
-      </span>
-      <span>${escapeHtml(locale.institution)}</span>
     </div>
 
     <footer class="site-footer">
