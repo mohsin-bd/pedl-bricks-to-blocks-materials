@@ -119,7 +119,7 @@ export const siteConfig = {
       heading: "PEDL: ইট থেকে ব্লক - উপকরণ ও ডাউনলোড",
       subheading: "মাঠ কর্মী, অংশীদার ও স্টেকহোল্ডারদের জন্য উন্মুক্ত ডাউনলোড",
       intro:
-        "এই উদ্যোগটি প্রচলিত ইট উৎপাদন থেকে টেকসই ব্লক উৎপাদনে রূপান্তরকে সহজ করা এবং পরিচ্ছন্ন নির্মাণ প্রযুক্তি গ্রহণে তথ্য ও সমন্বয়ের চ্যালেঞ্জ মোকাবেলা করার লক্ষ্যে কাজ করে।",
+        "PEDL-অর্থায়িত এই গবেষণা প্রকল্পটি বুঝতে চায় যে নির্মাণ শ্রমিকদের কাছে স্বল্প-হস্তক্ষেপমূলক তথ্য সচেতনতা ও প্রশিক্ষণ সরকারি ও বেসরকারি খাতে নীতি গ্রহণ বৃদ্ধি করতে পারে কিনা, যা প্রচলিত ইট উৎপাদন থেকে টেকসই ব্লক উৎপাদনে রূপান্তরকে ত্বরান্বিত করবে এবং পরিচ্ছন্ন নির্মাণ প্রযুক্তি গ্রহণে তথ্য ও সমন্বয়ের চ্যালেঞ্জ মোকাবেলা করবে।",
       projectInfoLabel: "প্রকল্পের তথ্য ও পটভূমি:",
       repositoryHeading: "এই রিপোজিটরিতে কী আছে?",
       summaryLabel: "এই রিপোজিটরিতে কী আছে?",
@@ -165,7 +165,7 @@ export const siteConfig = {
       heading: "PEDL: Bricks to Blocks - Materials & Downloads",
       subheading: "Open downloads for field teams, partners, and stakeholders",
       intro:
-        "This initiative supports the transition from traditional brick production to sustainable block manufacturing while addressing information and coordination barriers to cleaner building technologies.",
+        "This research project funded by PEDL aims to understand if low-touch information awareness and training for construction workers can increase policy uptake in the government and non-government sectors to transition from traditional brick production to sustainable block manufacturing, while addressing information and coordination barriers to cleaner building technologies.",
       projectInfoLabel: "Project information and background:",
       repositoryHeading: "What is available in this repository?",
       summaryLabel: "What is available in this repository?",
